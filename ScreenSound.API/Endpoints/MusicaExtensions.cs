@@ -35,7 +35,7 @@ namespace ScreenSound.API.Endpoints
                     return Results.NotFound(artista);
                 }
 
-                dal.Adicionar(new Musica(musicaRequest.nome, musicaRequest.anoLancamento) { artista = artista });
+                dal.Adicionar(new Musica(musicaRequest.nome, musicaRequest.anoLancamento) { Artista = artista });
                 return Results.Ok();
             });
 
@@ -63,7 +63,7 @@ namespace ScreenSound.API.Endpoints
 
                 musicaAAtualizar.Nome = musicaRequestEdit.nome;
                 musicaAAtualizar.AnoLancamento = musicaRequestEdit.anoLancamento;
-                musicaAAtualizar.artista = dalArtista.RecuperarPor(a => a.Id == musicaRequestEdit.artistaId);
+                musicaAAtualizar.Artista = dalArtista.RecuperarPor(a => a.Id == musicaRequestEdit.artistaId);
 
                 dal.Atualizar(musicaAAtualizar!);
                 return Results.Ok();
@@ -75,7 +75,7 @@ namespace ScreenSound.API.Endpoints
         }
         private static MusicaResponse EntityToResponse(Musica musica)
         {
-            return new MusicaResponse(musica.Id, musica.Nome!, musica.artista.Id, musica.artista.Nome);
+            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista.Id, musica.Artista.Nome);
         }
     }
 }

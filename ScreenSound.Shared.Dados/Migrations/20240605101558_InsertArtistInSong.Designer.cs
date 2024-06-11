@@ -77,11 +77,11 @@ namespace ScreenSound.Migrations
 
             modelBuilder.Entity("ScreenSound.Modelos.Musica", b =>
                 {
-                    b.HasOne("ScreenSound.Modelos.Artista", "artista")
+                    b.HasOne("ScreenSound.Modelos.Artista", "Artista")
                         .WithMany("Musicas")
                         .HasForeignKey("artistaId");
 
-                    b.Navigation("artista");
+                    b.Navigation("Artista");
                 });
 
             modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
