@@ -2,6 +2,7 @@
 using ScreenSound.API.Requests;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
+using ScreenSound.Shared.Modelos.Modelos;
 
 namespace ScreenSound.API.Endpoints
 {
@@ -35,7 +36,8 @@ namespace ScreenSound.API.Endpoints
                     return Results.NotFound(artista);
                 }
 
-                dal.Adicionar(new Musica(musicaRequest.nome, musicaRequest.anoLancamento) { Artista = artista });
+                dal.Adicionar(new Musica(musicaRequest.nome, musicaRequest.anoLancamento) 
+                { Artista = artista, Generos = (musicaRequest.Generos is not null) ? GeneroRequestConverter(musicaRequest.Generos) : new List<Genero>()});
                 return Results.Ok();
             });
 
@@ -69,13 +71,34 @@ namespace ScreenSound.API.Endpoints
                 return Results.Ok();
             });
         }
+
+        private static ICollection<Genero> GeneroRequestConverter(ICollection<GeneroRequest> generosRequest)
+        {
+            return generosRequest.Select(a => RequestToEntity(a)).ToList();
+        }
+
+        private static Genero RequestToEntity(GeneroRequest genero)
+        {
+            return new Genero() { Nome = genero.Nome, Descricao = genero.Descricao };
+        }
+
+        private static ICollection<GeneroResponse> GeneroListResponseConverter(ICollection<Genero> generos)
+        {
+            return generos.Select(a => EntityToResponse(a)).ToList();
+        }
+
+        private static GeneroResponse EntityToResponse(Genero genero)
+        {
+            return new GeneroResponse(genero.Nome!);
+        }
+
         private static ICollection<MusicaResponse> EntityListToResponseList(IEnumerable<Musica> musicaList)
         {
             return musicaList.Select(a => EntityToResponse(a)).ToList();
         }
         private static MusicaResponse EntityToResponse(Musica musica)
         {
-            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista.Id, musica.Artista.Nome);
+            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista!.Id, musica.Artista.Nome!, GeneroListResponseConverter(musica.Generos!));
         }
     }
 }
