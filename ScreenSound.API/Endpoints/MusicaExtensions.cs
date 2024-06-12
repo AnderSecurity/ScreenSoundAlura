@@ -79,26 +79,17 @@ namespace ScreenSound.API.Endpoints
 
         private static Genero RequestToEntity(GeneroRequest genero)
         {
-            return new Genero() { Nome = genero.Nome, Descricao = genero.Descricao };
-        }
-
-        private static ICollection<GeneroResponse> GeneroListResponseConverter(ICollection<Genero> generos)
-        {
-            return generos.Select(a => EntityToResponse(a)).ToList();
-        }
-
-        private static GeneroResponse EntityToResponse(Genero genero)
-        {
-            return new GeneroResponse(genero.Nome!);
+            return new Genero(genero.Nome, genero.Descricao);
         }
 
         private static ICollection<MusicaResponse> EntityListToResponseList(IEnumerable<Musica> musicaList)
         {
             return musicaList.Select(a => EntityToResponse(a)).ToList();
         }
+
         private static MusicaResponse EntityToResponse(Musica musica)
         {
-            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista!.Id, musica.Artista.Nome!, GeneroListResponseConverter(musica.Generos!));
+            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista!.Id, musica.Artista.Nome!, GeneroExtensions.GeneroListResponseConverter(musica.Generos!));
         }
     }
 }
