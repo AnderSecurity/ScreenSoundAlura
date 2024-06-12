@@ -29,8 +29,18 @@ namespace ScreenSound.API.Endpoints
 
             app.MapPost("/Generos", ([FromServices] DAL<Genero> dal, [FromBody] GeneroRequest generoRequest) =>
             {
-                dal.Adicionar(new Genero(generoRequest.Nome, generoRequest.Descricao));
-                return Results.Ok();
+                var genero = dal.RecuperarPor(g => g.Nome!.ToUpper().Equals(generoRequest.Nome!.ToUpper()));
+
+                if(genero is null)
+                {
+                    dal.Adicionar(new Genero(generoRequest.Nome, generoRequest.Descricao));
+                    return Results.Ok();
+                }
+                else
+                {
+                    return Results.Unauthorized();
+                }
+                
             });
 
             app.MapDelete("/Generos/{id}", ([FromServices] DAL<Genero> dal, int id) =>
