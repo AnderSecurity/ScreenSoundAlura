@@ -38,7 +38,7 @@ namespace ScreenSound.API.Endpoints
                 }
 
                 dal.Adicionar(new Musica(musicaRequest.nome, musicaRequest.anoLancamento) 
-                { Artista = artista, Generos = (musicaRequest.Generos is not null) ? GeneroRequestConverter(musicaRequest.Generos, dalGenero) : new List<Genero>()});
+                { MusicaArtistaId = artista, Generos = (musicaRequest.Generos is not null) ? GeneroRequestConverter(musicaRequest.Generos, dalGenero) : new List<Genero>()});
                 return Results.Ok();
             });
 
@@ -66,7 +66,7 @@ namespace ScreenSound.API.Endpoints
 
                 musicaAAtualizar.Nome = musicaRequestEdit.nome;
                 musicaAAtualizar.AnoLancamento = musicaRequestEdit.anoLancamento;
-                musicaAAtualizar.Artista = dalArtista.RecuperarPor(a => a.Id == musicaRequestEdit.artistaId);
+                musicaAAtualizar.MusicaArtistaId = dalArtista.RecuperarPor(a => a.Id == musicaRequestEdit.artistaId);
 
                 dal.Atualizar(musicaAAtualizar!);
                 return Results.Ok();
@@ -105,7 +105,7 @@ namespace ScreenSound.API.Endpoints
 
         private static MusicaResponse EntityToResponse(Musica musica)
         {
-            return new MusicaResponse(musica.Id, musica.Nome!, musica.Artista!.Id, musica.Artista.Nome!, GeneroExtensions.GeneroListResponseConverter(musica.Generos!));
+            return new MusicaResponse(musica.Id, musica.Nome!, musica.MusicaArtistaId!.Id, musica.MusicaArtistaId.Nome!, GeneroExtensions.GeneroListResponseConverter(musica.Generos!));
         }
     }
 }

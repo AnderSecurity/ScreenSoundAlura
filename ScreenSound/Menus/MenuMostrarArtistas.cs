@@ -12,7 +12,7 @@ internal class MenuMostrarArtistas : Menu
 
         foreach (var artista in artistaDAL.Listar())
         {
-            Console.WriteLine($"Artista: {artista}");
+            Console.WriteLine($"MusicaArtistaId: {artista}");
         }
 
         Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");

@@ -25,7 +25,7 @@ namespace ScreenSound.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
+            modelBuilder.Entity("ScreenSound.Modelos.MusicaArtistaId", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,14 +77,14 @@ namespace ScreenSound.Migrations
 
             modelBuilder.Entity("ScreenSound.Modelos.Musica", b =>
                 {
-                    b.HasOne("ScreenSound.Modelos.Artista", "Artista")
+                    b.HasOne("ScreenSound.Modelos.MusicaArtistaId", "MusicaArtistaId")
                         .WithMany("Musicas")
                         .HasForeignKey("artistaId");
 
-                    b.Navigation("Artista");
+                    b.Navigation("MusicaArtistaId");
                 });
 
-            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
+            modelBuilder.Entity("ScreenSound.Modelos.MusicaArtistaId", b =>
                 {
                     b.Navigation("Musicas");
                 });

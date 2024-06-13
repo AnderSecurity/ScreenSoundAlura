@@ -12,8 +12,8 @@ using ScreenSound.Banco;
 namespace ScreenSound.Migrations
 {
     [DbContext(typeof(ScreenSoundContext))]
-    [Migration("20240611202404_RelacionamentoMusicaGenero")]
-    partial class RelacionamentoMusicaGenero
+    [Migration("20240613110804_MusicaArtistaId")]
+    partial class MusicaArtistaId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace ScreenSound.Migrations
                     b.ToTable("GeneroMusica");
                 });
 
-            modelBuilder.Entity("ScreenSound.Modelos.MusicaArtistaId", b =>
+            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace ScreenSound.Migrations
                     b.Property<int?>("AnoLancamento")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArtistaId")
+                    b.Property<int?>("MusicaArtistaIdId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -87,7 +87,7 @@ namespace ScreenSound.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtistaId");
+                    b.HasIndex("MusicaArtistaIdId");
 
                     b.ToTable("Musicas");
                 });
@@ -128,14 +128,14 @@ namespace ScreenSound.Migrations
 
             modelBuilder.Entity("ScreenSound.Modelos.Musica", b =>
                 {
-                    b.HasOne("ScreenSound.Modelos.MusicaArtistaId", "MusicaArtistaId")
+                    b.HasOne("ScreenSound.Modelos.Artista", "MusicaArtistaId")
                         .WithMany("Musicas")
-                        .HasForeignKey("ArtistaId");
+                        .HasForeignKey("MusicaArtistaIdId");
 
                     b.Navigation("MusicaArtistaId");
                 });
 
-            modelBuilder.Entity("ScreenSound.Modelos.MusicaArtistaId", b =>
+            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
                 {
                     b.Navigation("Musicas");
                 });

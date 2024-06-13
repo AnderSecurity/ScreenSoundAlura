@@ -9,7 +9,7 @@ internal class MenuRegistrarMusica : Menu
     {
         base.Executar(artistaDAL);
         ExibirTituloDaOpcao("Registro de músicas");
-        Console.Write("Digite o Artista cuja música deseja registrar: ");
+        Console.Write("Digite o MusicaArtistaId cuja música deseja registrar: ");
         string nomeDoArtista = Console.ReadLine()!;
         var artistaRecuperado = artistaDAL.RecuperarPor(artista => artista.Nome.Equals(nomeDoArtista));
 
@@ -27,7 +27,7 @@ internal class MenuRegistrarMusica : Menu
         }
         else
         {
-            Console.WriteLine($"\nO Artista {nomeDoArtista} não foi encontrado!");
+            Console.WriteLine($"\nO MusicaArtistaId {nomeDoArtista} não foi encontrado!");
             Console.WriteLine("Digite uma tecla para voltar ao menu principal");
             Console.ReadKey();
             Console.Clear();

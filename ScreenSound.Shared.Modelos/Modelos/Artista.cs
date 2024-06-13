@@ -1,11 +1,12 @@
 ﻿namespace ScreenSound.Modelos; 
 
-public class Artista 
-{
+public class Artista
+{ 
+    public int Id { get; set; }
     public string Nome { get; set; }
     public string? FotoPerfil { get; set; }
     public string Bio { get; set; }
-    public int Id { get; set; }
+    
     public virtual ICollection<Musica> Musicas { get; set; } = new List<Musica>();
 
     public Artista()
@@ -25,7 +26,7 @@ public class Artista
 
     public void ExibirDiscografia()
     {
-        Console.WriteLine($"Discografia do Artista {Nome}");
+        Console.WriteLine($"Discografia do MusicaArtistaId {Nome}");
         foreach (var musica in Musicas)
         {
             Console.WriteLine($"Música: {musica.Nome} - Ano de Lançamento: {musica.AnoLancamento}");

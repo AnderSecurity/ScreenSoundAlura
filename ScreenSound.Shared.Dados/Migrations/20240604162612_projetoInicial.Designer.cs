@@ -24,7 +24,7 @@ namespace ScreenSound.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
+            modelBuilder.Entity("ScreenSound.Modelos.MusicaArtistaId", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

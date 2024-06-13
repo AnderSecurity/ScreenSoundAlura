@@ -75,7 +75,7 @@ namespace ScreenSound.Migrations
                     b.Property<int?>("AnoLancamento")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArtistaId")
+                    b.Property<int?>("MusicaArtistaIdId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -84,7 +84,7 @@ namespace ScreenSound.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtistaId");
+                    b.HasIndex("MusicaArtistaIdId");
 
                     b.ToTable("Musicas");
                 });
@@ -125,11 +125,11 @@ namespace ScreenSound.Migrations
 
             modelBuilder.Entity("ScreenSound.Modelos.Musica", b =>
                 {
-                    b.HasOne("ScreenSound.Modelos.Artista", "Artista")
+                    b.HasOne("ScreenSound.Modelos.Artista", "MusicaArtistaId")
                         .WithMany("Musicas")
-                        .HasForeignKey("ArtistaId");
+                        .HasForeignKey("MusicaArtistaIdId");
 
-                    b.Navigation("Artista");
+                    b.Navigation("MusicaArtistaId");
                 });
 
             modelBuilder.Entity("ScreenSound.Modelos.Artista", b =>
