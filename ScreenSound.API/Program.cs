@@ -17,8 +17,8 @@ builder.Services.AddDbContext<ScreenSoundContext>((options) =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("https://localhost:7047")
                           .AllowAnyHeader()
                           .AllowAnyMethod());
 });
@@ -32,7 +32,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowSpecificOrigin");
+
+app.UseStaticFiles();
 
 app.AddEndPointsArtistas();
 app.AddEndpointMusicas();
