@@ -7,8 +7,11 @@ public class Musica
     public int Id { get; set; }
     public string Nome { get; set; }
     public int? AnoLancamento { get; set; }
+    public int? ArtistaId { get; set; }
     public virtual Artista? MusicaArtistaId { get; set; }
     public virtual ICollection<Genero>? Generos { get; set; }
+
+    public Musica() { }
 
     public Musica(string nome)
     {

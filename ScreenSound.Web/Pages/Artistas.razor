@@ -12,7 +12,7 @@
         @foreach (var artista in artistasPorPagina)
         {
             <MudItem xs="3">
-                <CardArtista Artista="artista"></CardArtista>
+                <CardArtista Artista="artista"/>
             </MudItem>
         }
     </MudGrid>
@@ -20,10 +20,10 @@
 
 @code {
     private ICollection<ArtistaResponse>? artistas;
+    private ICollection<ArtistaResponse>? artistasPorPagina;
     private int tamanho = 8;
     private int totalItens;
     private int totalPaginas;
-    private ICollection<ArtistaResponse>? artistasPorPagina;
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,6 +46,4 @@
             .Take(tamanho)
             .ToList();
     }
-
-
 }

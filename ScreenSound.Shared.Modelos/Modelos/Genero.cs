@@ -7,8 +7,9 @@ namespace ScreenSound.Shared.Modelos.Modelos
         public int Id { get; set; }
         public string? Nome { get; set; } = string.Empty;
         public string? Descricao { get; set; } = string.Empty;
-        public virtual ICollection<Musica>? Musicas { get; set; }
+        public virtual ICollection<Musica> Musicas { get; set; }
 
+        public Genero() { }
         public Genero(string? nome, string? descricao)
         {
             Nome = nome;

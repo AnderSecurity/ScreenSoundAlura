@@ -1,21 +1,49 @@
-﻿@page "/MusicasPorArtista"
-@inject MusicaAPI musicaAPI
+﻿@page "/MusicasPorArtista";
+@inject MusicaAPI musicasAPI;
 
-<h3>Músicas por artista</h3>
-@if (musicas is not null)
+<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">
+    <MudText Class="mb-4" Typo="Typo.h4">Músicas cadastradas</MudText>
+    <MudPagination Count="@totalPaginas" SelectedChanged="PaginaMudou"></MudPagination>
+</MudStack>
+
+@if (musicasPorPagina is not null)
 {
-    foreach (var musica in musicas)
-    {
-        <p>@musica.Nome</p>
-    }
+    <MudGrid>
+        @foreach (var musica in musicasPorPagina)
+        {
+            <MudItem xs="3">
+                <CardMusica AMusica="musica"/>
+            </MudItem>            
+        }
+    </MudGrid>
 }
-
 
 @code {
     private ICollection<MusicaResponse>? musicas;
+    private ICollection<MusicaResponse>? musicasPorPagina;
+    private int tamanho = 8;
+    private int totalItens;
+    private int totalPaginas;
 
     protected override async Task OnInitializedAsync()
     {
-        musicas = await musicaAPI.GetMusicasAsync();
+        musicas = await musicasAPI.GetMusicasAsync();
+
+        if (musicas is not null)
+        {
+            musicas = musicas.OrderByDescending(a => a.Id).ToList();
+            totalItens = musicas.Count();
+            totalPaginas = Convert.ToInt32(Math.Ceiling((totalItens * 1.0) / tamanho));
+            this.PaginaMudou(1);
+        }
+
+    }
+    private void PaginaMudou(int pageNumber)
+    {
+        var indice = pageNumber - 1;
+        musicasPorPagina = musicas!
+            .Skip(tamanho * indice)
+            .Take(tamanho)
+            .ToList();
     }
 }
